@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limited Letterpress Synonym Finder</title>
+</head>
+<body>
+    <h1>Limited Letterpress Synonym Finder</h1>
+    <h2><em>For when you only have 1 x A-Z type on hand.</em></h2>
+    <p>Finds synonyms for the word you input, removes any that use any letter more than once, then displays the rest. (Only works with single words, not phrases.)</p>
+    <input type="text" id="wordInput" placeholder="Type a word">
+    <button onclick="findSynonyms()">Find that subset of synonyms</button>
+    <ul id="results"></ul>
+
+    <script>
+        async function findSynonyms() {
+            const word = document.getElementById('wordInput').value;
+            const response = await fetch(`https://api.datamuse.com/words?rel_syn=${word}`);
+            const synonyms = await response.json();
+            const filteredSynonyms = synonyms
+                .map(syn => syn.word)
+                .filter(word => {
+                    const letterSet = new Set(word);
+                    return letterSet.size === word.length; // Ensure no repeated letters
+                });
+
+            const resultsList = document.getElementById('results');
+            resultsList.innerHTML = '';
+            filteredSynonyms.forEach(syn => {
+                const listItem = document.createElement('li');
+                listItem.textContent = syn;
+                resultsList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
