@@ -118,12 +118,6 @@
 <h3>Keywords from partial alphabets (aka I can haz keywords, not sorry)</h3>
 <p>Sometimes sellers offer inexpensive sets of characters that don't have all A-Z sorts; I'm particularly thinking of when they offer something like 7-12 letters (e.g. "CCDFFLLNOZ"), for this tool: when you want to know whether one of the words you a care about (a "keyword") is spellable, if you buy the set.</p>
 
-<h4>Amanda's version (just words Amanda cares about)</h4>
-<p>Type the letters you have available:</p>
-<input type="text" id="lettersInputA" placeholder="Enter letters here">
-<button onclick="checkLettersA()">Check</button>
-<p id="resultA"></p>
-
 <h4>Version for others to use (you enter what keywords to look for)</h4>
 <p>Type the letters you have available:</p>
 <input type="text" id="lettersInputB" placeholder="Enter letters here">
@@ -132,10 +126,17 @@
 <button onclick="checkLettersB()">Check</button>
 <p id="resultB"></p>
 
+<h4>Amanda's version (just words Amanda cares about)</h4>
+<p><em>(Other folks, this part just checks letters against my personal list of frequently used terms. You can run it if you think you may be interested in similar terms, I guess?)</em></p>
+<p>Amanda Wyatt, type the letters you have available:</p>
+<input type="text" id="lettersInputA" placeholder="Enter letters here">
+<button onclick="checkLettersA()">Check</button>
+<p id="resultA"></p>
+
 <script>
 	function checkLettersA() {
 		const input = document.getElementById('lettersInputA').value.toLowerCase();
-		const words = ['digital', 'data', 'code', 'zine', 'zines', 'trans', 'transgender', 'care', 'equity', 'justice', 'slab', 'scholar', 'scholars lab', 'cholars lab', 'cholars ab', 'print', 'joy', 'glitch', 'union', 'experiment', 'lab', 'community', 'bread', 'bake', 'baking', 'bakery', 'zine bakery'];
+		const words = ['digital', 'data', 'code', 'zine', 'zines', 'trans', 'transgender', 'care', 'equity', 'justice', 'slab', 'scholar', 'scholars lab', 'cholars lab', 'cholars ab', 'print', 'joy', 'glitch', 'union', 'experiment', 'lab', 'community', 'bread', 'bake', 'baking', 'bakery', 'zine bakery', 'dog', 'learn', 'research', 'DHmakes'];
 		const canSpellResults = [];
 		const cannotSpellResults = [];
 
