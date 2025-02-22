@@ -2,20 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Limited Letterpress Synonym Finder</title>
+    <title>Limited Letterpress: Tools for Not-Enough Text :D</title>
+	<style>
+		.i-can-spell-it {
+			color: green;
+            font-weight: bold;
+        }
+        h1 {
+        font-size: 3.5em;
+        text-align: center;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        }
+        h2 {
+        font-weight: normal;
+        margin-top: 0px;
+
+        }
+        h2 p {
+		margin: 0;
+        }
+        h3 {
+        font-size: 3em;
+        margin: 0;
+        }
+        h4 {
+    
+		}
+		img {
+		display: block;
+		margin: auto;	
+		}
+		body {
+		max-width: 1000px;
+		margin: auto;
+		}
+    </style> 
 </head>
 <body>
-<h1>Limited Letterpress</h1>
-<h2><em>For when you only have 1 x A-Z type on hand.</em></h2>
+
+<h1>Limited Letterpress:<br>Tools for Not-Enough Text :D</h1>
+<img src="limitedletterpress.png">
+<h2><em><p>For when you only have 1 x A-Z type on hand (or an otherwise limited number of letterpress sorts,) these tools can help you figure out what you can print in one pass.</p><br><p>Coded by <a href="https://amandavisconti.com">Amanda Wyatt Visconti</a> as they find themselves needing little bits of code to aid printwork; deliberately 90s design.</p></em></h2>
+<br>
+
+<br>
+<hr>
+<img src="synonymfinder.png">
 <h3>Synonym Finder</h3>
 <p>Finds synonyms for the word you input, removes any that use any letter more than once, then displays the rest. (Only works with single-word inputs, not phrases.)</p>
 <p>Useful if you only have A-Z type, 1 sort per letter, on hand—but want to letterpress print without needing to make multiple passes moving letters around in between and hoping you register things correctly so it looks okay.</p>
 
 <input type="text" id="wordInput" placeholder="Type a word">
 <button onclick="findSynonyms()">Find that subset of synonyms</button>
-
 <ul id="results"></ul>
-
 <script>
 	async function findSynonyms() {
 		const word = document.getElementById('wordInput').value;
@@ -25,7 +65,7 @@
 			.map(syn => syn.word)
 				.filter(word => {
 					const letterSet = new Set(word);
-					return letterSet.size === word.length; // Set is the letters used; if word length greater than set length, word must use multiple of 1+ letters
+					return letterSet.size === word.length; // Set = the letters used; if word length is > than set length, word must use multiple of 1+ letters
 				});
 		const resultsList = document.getElementById('results');
 		resultsList.innerHTML = '';
@@ -44,33 +84,121 @@
 	}
 </script>
 
-<img src="synonymfinder.png">
 
+<br>
+<hr>
+<img src="useremaining.png">
 <h3>Use up some of your remaining letters</h3>
 <p>Enter the letters/word(s) from your 1xA-Z type you're planning to use, to see which letters of the alphabet are left for other uses. Then paste those letters into a tool like <a href="https://word.tips/unscramble/">Unscrambler</a> (choose "all dictionaries") to see possible words you can make from those letters.</p>
-    <input type="text" id="wordInput2" placeholder="Enter a word">
-    <button onclick="findUnusedLetters2()">Find Unused Letters</button>
-    <p id="result2"></p>
 
-    <script>
-        function findUnusedLetters2() {
-            const alphabet2 = 'abcdefghijklmnopqrstuvwxyz';
-            const inputWord2 = document.getElementById('wordInput2').value.toLowerCase();
-            let unusedLetters2 = '';
+<input type="text" id="wordInput2" placeholder="Enter a word">
+<button onclick="findUnusedLetters2()">Find Unused Letters</button>
+<p id="result2"></p>
 
-            for (let letter of alphabet2) {
-                if (!inputWord2.includes(letter)) {
-                    unusedLetters2 += letter + ' ';
-                }
-            }
+<script>
+	function findUnusedLetters2() {
+		const alphabet2 = 'abcdefghijklmnopqrstuvwxyz';
+		const inputWord2 = document.getElementById('wordInput2').value.toLowerCase();
+		let unusedLetters2 = '';
 
-            document.getElementById('result2').textContent = 'Unused letters: ' + unusedLetters2.trim();
-        }
-    </script>
+		for (let letter of alphabet2) {
+			if (!inputWord2.includes(letter)) {
+				unusedLetters2 += letter + ' ';
+			}
+		}
 
-<img src="useremaining.png">
+		document.getElementById('result2').textContent = 'Unused letters: ' + unusedLetters2.trim();
+	}
+</script>
 
+
+<br>
+<hr>
+<img src="canihazkeywords.png">
+<h3>Keywords from partial alphabets (aka I can haz keywords, not sorry)</h3>
+<p>Sometimes sellers offer inexpensive sets of characters that don't have all A-Z sorts; I'm particularly thinking of when they offer something like 7-12 letters (e.g. "CCDFFLLNOZ"), for this tool: when you want to know whether one of the words you a care about (a "keyword") is spellable, if you buy the set.</p>
+
+<h4>Amanda's version (just words Amanda cares about)</h4>
+<p>Type the letters you have available:</p>
+<input type="text" id="lettersInputA" placeholder="Enter letters here">
+<button onclick="checkLettersA()">Check</button>
+<p id="resultA"></p>
+
+<h4>Version for others to use (you enter what keywords to look for)</h4>
+<p>Type the letters you have available:</p>
+<input type="text" id="lettersInputB" placeholder="Enter letters here">
+<p>Type the words you want to check (separated by commas):</p>
+<input type="text" id="wordsInputB" placeholder="Enter words here">
+<button onclick="checkLettersB()">Check</button>
+<p id="resultB"></p>
+
+<script>
+	function checkLettersA() {
+		const input = document.getElementById('lettersInputA').value.toLowerCase();
+		const words = ['digital', 'data', 'code', 'zine', 'zines', 'trans', 'transgender', 'care', 'equity', 'justice', 'slab', 'scholar', 'scholars lab', 'cholars lab', 'cholars ab', 'print', 'joy', 'glitch', 'union', 'experiment', 'lab', 'community', 'bread', 'bake', 'baking', 'bakery', 'zine bakery'];
+		const canSpellResults = [];
+		const cannotSpellResults = [];
+
+		words.forEach(word => {
+			const letterCount = {};
+			for (let letter of input) {
+				letterCount[letter] = (letterCount[letter] || 0) + 1;
+			}
+			let canSpell = true;
+			for (let letter of word) {
+				if (!letterCount[letter]) {
+					canSpell = false;
+					break;
+				}
+				letterCount[letter]--;
+			}
+			if (canSpell) {
+				canSpellResults.push(`<span class="i-can-spell-it">Yes, you can spell "${word}" with those letters!</span>`);
+			} else {
+				cannotSpellResults.push(`No, you cannot spell "${word}" with those letters.`);
+			}
+		});
+
+		const resultMessage = canSpellResults.concat(cannotSpellResults).join('<br>');
+			document.getElementById('resultA').innerHTML = resultMessage;
+	}
+
+	function checkLettersB() {
+		const input = document.getElementById('lettersInputB').value.toLowerCase();
+		const words = document.getElementById('wordsInputB').value.toLowerCase().split(',').map(word => word.trim());
+		const canSpellResults = [];
+		const cannotSpellResults = [];
+
+		words.forEach(word => {
+			const letterCount = {};
+			for (let letter of input) {
+				letterCount[letter] = (letterCount[letter] || 0) + 1;
+			}
+			let canSpell = true;
+			for (let letter of word) {
+				if (!letterCount[letter]) {
+					canSpell = false;
+					break;
+				}
+				letterCount[letter]--;
+			}
+			if (canSpell) {
+				canSpellResults.push(`<span class="i-can-spell-it">Yes, you can spell "${word}" with those letters!</span>`);
+			} else {
+				cannotSpellResults.push(`No, you cannot spell "${word}" with those letters.`);
+			}
+		});
+
+		const resultMessage = canSpellResults.concat(cannotSpellResults).join('<br>');
+		document.getElementById('resultB').innerHTML = resultMessage;
+	}
+</script>
+  
+  
+<br>
+<hr>
 <h3>Other resources</h3>
+<img src="otherresources.png">
 <p><a href="https://www.ianschaefer.com/tools/typecount/">This tool by Ian Schaefer</a> counts the characters you need for the paragraph you input, and allows you to note if you want to count any double characters as single sorts (e.g. if you have the ff f-ligature on hand).</p>
 
 </body>
