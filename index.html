@@ -116,7 +116,7 @@
 <hr>
 <img src="canihazkeywords.png">
 <h3>Keywords from partial alphabets (aka I can haz keywords, not sorry)</h3>
-<p>Sometimes sellers offer inexpensive sets of characters that don't have all A-Z sorts; I'm particularly thinking of when they offer something like 7-12 letters (e.g. "CCDFFLLNOZ" or see example screenshot below from Ebay), for this tool: when you want to know whether one of the words you a care about (a "keyword") is spellable, if you buy the set.</p>
+<p>Sometimes sellers offer inexpensive sets of characters that don't have all A-Z sorts; I'm particularly thinking of when they offer something like 7-12 letters (e.g. "CCDFFLLNOZ" or see example screenshot below from Ebay), for this tool: when you want to know whether one of the words you a care about (a "keyword") is spellable, if you buy the set. Thumbs up means it's spellable with your entered letters; thumbs down means you're an awesome person but can't spell the words you entered with those letters.</p>
 
 <img width="250px" src="randomtype.png" alt="Screenshot of an Ebay sale item that contains around 10 random letterpress letters">
 
@@ -156,9 +156,9 @@
 				letterCount[letter]--;
 			}
 			if (canSpell) {
-				canSpellResults.push(`<span class="i-can-spell-it">Yes, you can spell "${word}" with those letters!</span>`);
+				canSpellResults.push(`<span class="i-can-spell-it">"${word}" 👍</span>`);
 			} else {
-				cannotSpellResults.push(`No, you cannot spell "${word}" with those letters.`);
+				cannotSpellResults.push(`"${word}" 👎`);
 			}
 		});
 
@@ -186,9 +186,9 @@
 				letterCount[letter]--;
 			}
 			if (canSpell) {
-				canSpellResults.push(`<span class="i-can-spell-it">Yes, you can spell "${word}" with those letters!</span>`);
+				canSpellResults.push(`<span class="i-can-spell-it">"${word}" 👍</span>`);
 			} else {
-				cannotSpellResults.push(`No, you cannot spell "${word}" with those letters.`);
+				cannotSpellResults.push(`"${word}" 👎`);
 			}
 		});
 
