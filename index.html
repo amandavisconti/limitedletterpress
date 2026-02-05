@@ -242,17 +242,17 @@
 
 <h4>Version for others to use (you enter what keywords to look for)</h4>
 <p>Type the letters you have available:</p>
-<input type="text" id="lettersInputB" placeholder="Enter letters here" style="width: 100%; padding: 8px;">
+<input type="text" id="lettersInputB2" placeholder="Enter letters here" style="width: 100%; padding: 8px;">
 <p>Type the words you want to check (separated by commas):</p>
-<input type="text" id="wordsInputB" placeholder="Enter words here" style="width: 100%; padding: 8px;">
-<button onclick="checkLettersB()" style="padding: 10px 20px; margin-top: 10px;">Check</button>
-<div id="resultB"></div>
+<input type="text" id="wordsInputB2" placeholder="Enter words here" style="width: 100%; padding: 8px;">
+<button onclick="checkLettersB2()" style="padding: 10px 20px; margin-top: 10px;">Check</button>
+<div id="resultB2"></div>
 
 <h4>Amanda's version (just words Amanda cares about)</h4>
 <p>Amanda Wyatt!, type the letters you have available:</p>
-<input type="text" id="lettersInputA" placeholder="Enter letters here" style="width: 100%; padding: 8px;">
-<button onclick="checkLettersA()" style="padding: 10px 20px; margin-top: 10px;">Check</button>
-<div id="resultA"></div>
+<input type="text" id="lettersInputA2" placeholder="Enter letters here" style="width: 100%; padding: 8px;">
+<button onclick="checkLettersA2()" style="padding: 10px 20px; margin-top: 10px;">Check</button>
+<div id="resultA2"></div>
 
 <script>
     function getMissingLetters(availableLetters, word) {
@@ -288,8 +288,8 @@
         return letters.join(', ');
     }
 
-	function checkLettersA() {
-		const input = document.getElementById('lettersInputA').value;
+	function checkLettersA2() {
+		const input = document.getElementById('lettersInputA2').value;
 		const words = ['digital', 'data', 'code', 'zine', 'zines', 'trans', 'transgender', 'care', 'equity', 'justice', 'slab', 'scholar', 'scholars lab', 'cholars lab', 'cholars ab', 'print', 'joy', 'glitch', 'union', 'experiment', 'lab', 'community', 'bread', 'bake', 'baking', 'bakery', 'zine bakery', 'dog', 'learn', 'research', 'DHmakes', 'dh', 'letterpress', 'print'];
 		
         const canSpell = [];
@@ -332,15 +332,15 @@
             resultHTML += '<div class="result-section"><strong>Need 4+ letters:</strong><br>' + needMore.join('<br>') + '</div>';
         }
 
-		document.getElementById('resultA').innerHTML = resultHTML;
+		document.getElementById('resultA2').innerHTML = resultHTML;
 	}
 
-	function checkLettersB() {
-		const input = document.getElementById('lettersInputB').value;
-		const words = document.getElementById('wordsInputB').value.toLowerCase().split(',').map(word => word.trim()).filter(word => word.length > 0);
+	function checkLettersB2() {
+		const input = document.getElementById('lettersInputB2').value;
+		const words = document.getElementById('wordsInputB2').value.toLowerCase().split(',').map(word => word.trim()).filter(word => word.length > 0);
 		
         if (words.length === 0) {
-            document.getElementById('resultB').innerHTML = '<p style="color: #999;">Please enter some words to check!</p>';
+            document.getElementById('resultB2').innerHTML = '<p style="color: #999;">Please enter some words to check!</p>';
             return;
         }
 
@@ -384,7 +384,7 @@
             resultHTML += '<div class="result-section"><strong>Need 4+ letters:</strong><br>' + needMore.join('<br>') + '</div>';
         }
 
-		document.getElementById('resultB').innerHTML = resultHTML;
+		document.getElementById('resultB2').innerHTML = resultHTML;
 	}
 </script>
   
