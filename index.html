@@ -8,6 +8,18 @@
 			color: green;
             font-weight: bold;
         }
+         .can-spell-with-1 {
+            color: #2E7D32;
+            font-weight: bold;
+        }
+        .can-spell-with-2 {
+            color: #558B2F;
+            font-weight: bold;
+        }
+        .can-spell-with-3 {
+            color: #689F38;
+            font-weight: bold;
+        }
         h1 {
         font-size: 3.5em;
         text-align: center;
@@ -37,6 +49,23 @@
 		max-width: 1000px;
 		margin: auto;
 		}
+		 .legend {
+            background: #f0f0f0;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .result-section {
+            margin: 15px 0;
+            padding: 10px;
+            background: #fafafa;
+            border-left: 4px solid #ccc;
+        }
+        .missing-letters {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+        }
     </style> 
 </head>
 <body>
@@ -139,7 +168,7 @@
 <script>
 	function checkLettersA() {
 		const input = document.getElementById('lettersInputA').value.toLowerCase();
-		const words = ['digital', 'data', 'code', 'zine', 'zines', 'trans', 'transgender', 'care', 'equity', 'justice', 'slab', 'scholar', 'scholars lab', 'cholars lab', 'cholars ab', 'print', 'joy', 'glitch', 'union', 'experiment', 'lab', 'community', 'bread', 'bake', 'baking', 'bakery', 'zine bakery', 'dog', 'learn', 'research', 'DHmakes', 'dh', 'letterpress', 'print'];
+		const words = ['digital', 'data', 'code', 'zine', 'zines', 'trans', 'transgender', 'care', 'equity', 'justice', 'slab', 'scholar', 'scholars lab', 'cholars lab', 'cholars ab', 'print', 'joy', 'glitch', 'union', 'experiment', 'lab', 'community', 'bread', 'bake', 'baking', 'bakery', 'zine bakery', 'dog', 'learn', 'research', 'DHmakes', 'dh', 'letterpress', 'print']; // want to add words minus their first letter, as caps can be in different typefaces and still look okay
 		const canSpellResults = [];
 		const cannotSpellResults = [];
 
@@ -197,7 +226,167 @@
 		document.getElementById('resultB').innerHTML = resultMessage;
 	}
 </script>
-  
+
+<img src="almost.png">
+<h3>Almost!...What can you spell with these plus a few more letters?</h3>
+<p>Sometimes you're willing to use a typeface plus 1-3 letters from another typeface (especially with wood type!), or to print in multiple passes reusing letters you already have.</p>
+
+<div class="legend">
+    <strong>Legend:</strong><br>
+    <span class="i-can-spell-it">👍 Already spellable with your letters</span><br>
+    <span class="can-spell-with-1">+1 Need 1 more letter</span><br>
+    <span class="can-spell-with-2">+2 Need 2 more letters</span><br>
+    <span class="can-spell-with-3">+3 Need 3 more letters</span><br>
+    <span class="cannot-spell">👎 Need 4+ more letters</span>
+</div>
+
+<h4>Version for others to use (you enter what keywords to look for)</h4>
+<p>Type the letters you have available:</p>
+<input type="text" id="lettersInputB" placeholder="Enter letters here" style="width: 100%; padding: 8px;">
+<p>Type the words you want to check (separated by commas):</p>
+<input type="text" id="wordsInputB" placeholder="Enter words here" style="width: 100%; padding: 8px;">
+<button onclick="checkLettersB()" style="padding: 10px 20px; margin-top: 10px;">Check</button>
+<div id="resultB"></div>
+
+<h4>Amanda's version (just words Amanda cares about)</h4>
+<p>Amanda Wyatt!, type the letters you have available:</p>
+<input type="text" id="lettersInputA" placeholder="Enter letters here" style="width: 100%; padding: 8px;">
+<button onclick="checkLettersA()" style="padding: 10px 20px; margin-top: 10px;">Check</button>
+<div id="resultA"></div>
+
+<script>
+    function getMissingLetters(availableLetters, word) {
+        const letterCount = {};
+        for (let letter of availableLetters.toLowerCase()) {
+            letterCount[letter] = (letterCount[letter] || 0) + 1;
+        }
+        
+        const missing = {};
+        let totalMissing = 0;
+        
+        for (let letter of word.toLowerCase()) {
+            if (!letterCount[letter] || letterCount[letter] === 0) {
+                missing[letter] = (missing[letter] || 0) + 1;
+                totalMissing++;
+            } else {
+                letterCount[letter]--;
+            }
+        }
+        
+        return { count: totalMissing, letters: missing };
+    }
+    
+    function formatMissingLetters(missing) {
+        const letters = [];
+        for (let letter in missing) {
+            if (missing[letter] > 1) {
+                letters.push(`${missing[letter]}×${letter}`);
+            } else {
+                letters.push(letter);
+            }
+        }
+        return letters.join(', ');
+    }
+
+	function checkLettersA() {
+		const input = document.getElementById('lettersInputA').value;
+		const words = ['digital', 'data', 'code', 'zine', 'zines', 'trans', 'transgender', 'care', 'equity', 'justice', 'slab', 'scholar', 'scholars lab', 'cholars lab', 'cholars ab', 'print', 'joy', 'glitch', 'union', 'experiment', 'lab', 'community', 'bread', 'bake', 'baking', 'bakery', 'zine bakery', 'dog', 'learn', 'research', 'DHmakes', 'dh', 'letterpress', 'print'];
+		
+        const canSpell = [];
+        const needOne = [];
+        const needTwo = [];
+        const needThree = [];
+        const needMore = [];
+
+		words.forEach(word => {
+            const missing = getMissingLetters(input, word);
+            const missingStr = formatMissingLetters(missing.letters);
+            
+            if (missing.count === 0) {
+                canSpell.push(`<span class="i-can-spell-it">"${word}" 👍</span>`);
+            } else if (missing.count === 1) {
+                needOne.push(`<span class="can-spell-with-1">"${word}" +1 <span class="missing-letters">(need: ${missingStr})</span></span>`);
+            } else if (missing.count === 2) {
+                needTwo.push(`<span class="can-spell-with-2">"${word}" +2 <span class="missing-letters">(need: ${missingStr})</span></span>`);
+            } else if (missing.count === 3) {
+                needThree.push(`<span class="can-spell-with-3">"${word}" +3 <span class="missing-letters">(need: ${missingStr})</span></span>`);
+            } else {
+                needMore.push(`<span class="cannot-spell">"${word}" 👎 <span class="missing-letters">(need ${missing.count} letters: ${missingStr})</span></span>`);
+            }
+		});
+
+        let resultHTML = '';
+        if (canSpell.length > 0) {
+            resultHTML += '<div class="result-section"><strong>✅ Already spellable:</strong><br>' + canSpell.join('<br>') + '</div>';
+        }
+        if (needOne.length > 0) {
+            resultHTML += '<div class="result-section"><strong>+1 letter needed:</strong><br>' + needOne.join('<br>') + '</div>';
+        }
+        if (needTwo.length > 0) {
+            resultHTML += '<div class="result-section"><strong>+2 letters needed:</strong><br>' + needTwo.join('<br>') + '</div>';
+        }
+        if (needThree.length > 0) {
+            resultHTML += '<div class="result-section"><strong>+3 letters needed:</strong><br>' + needThree.join('<br>') + '</div>';
+        }
+        if (needMore.length > 0) {
+            resultHTML += '<div class="result-section"><strong>Need 4+ letters:</strong><br>' + needMore.join('<br>') + '</div>';
+        }
+
+		document.getElementById('resultA').innerHTML = resultHTML;
+	}
+
+	function checkLettersB() {
+		const input = document.getElementById('lettersInputB').value;
+		const words = document.getElementById('wordsInputB').value.toLowerCase().split(',').map(word => word.trim()).filter(word => word.length > 0);
+		
+        if (words.length === 0) {
+            document.getElementById('resultB').innerHTML = '<p style="color: #999;">Please enter some words to check!</p>';
+            return;
+        }
+
+        const canSpell = [];
+        const needOne = [];
+        const needTwo = [];
+        const needThree = [];
+        const needMore = [];
+
+		words.forEach(word => {
+            const missing = getMissingLetters(input, word);
+            const missingStr = formatMissingLetters(missing.letters);
+            
+            if (missing.count === 0) {
+                canSpell.push(`<span class="i-can-spell-it">"${word}" 👍</span>`);
+            } else if (missing.count === 1) {
+                needOne.push(`<span class="can-spell-with-1">"${word}" +1 <span class="missing-letters">(need: ${missingStr})</span></span>`);
+            } else if (missing.count === 2) {
+                needTwo.push(`<span class="can-spell-with-2">"${word}" +2 <span class="missing-letters">(need: ${missingStr})</span></span>`);
+            } else if (missing.count === 3) {
+                needThree.push(`<span class="can-spell-with-3">"${word}" +3 <span class="missing-letters">(need: ${missingStr})</span></span>`);
+            } else {
+                needMore.push(`<span class="cannot-spell">"${word}" 👎 <span class="missing-letters">(need ${missing.count} letters: ${missingStr})</span></span>`);
+            }
+		});
+
+        let resultHTML = '';
+        if (canSpell.length > 0) {
+            resultHTML += '<div class="result-section"><strong>✅ Already spellable:</strong><br>' + canSpell.join('<br>') + '</div>';
+        }
+        if (needOne.length > 0) {
+            resultHTML += '<div class="result-section"><strong>+1 letter needed:</strong><br>' + needOne.join('<br>') + '</div>';
+        }
+        if (needTwo.length > 0) {
+            resultHTML += '<div class="result-section"><strong>+2 letters needed:</strong><br>' + needTwo.join('<br>') + '</div>';
+        }
+        if (needThree.length > 0) {
+            resultHTML += '<div class="result-section"><strong>+3 letters needed:</strong><br>' + needThree.join('<br>') + '</div>';
+        }
+        if (needMore.length > 0) {
+            resultHTML += '<div class="result-section"><strong>Need 4+ letters:</strong><br>' + needMore.join('<br>') + '</div>';
+        }
+
+		document.getElementById('resultB').innerHTML = resultHTML;
+	}
+</script>
   
 <br>
 <hr>
@@ -205,5 +394,10 @@
 <img src="otherresources.png">
 <p><a href="https://www.ianschaefer.com/tools/typecount/">This tool by Ian Schaefer</a> counts the characters you need for the paragraph you input, and allows you to note if you want to count any double characters as single sorts (e.g. if you have the ff f-ligature on hand).</p>
 <p>Ryan Cordell & Claude Codes's <a href="https://outofsorts.skeuomorphpress.org/">Out of Sorts</a> is another option for inputting text and learning what characters you need—with some cool features: a California job case visualization in response to your input text, and the ability to enter target block and line size to see point size and leading combinations that would fit your text. (<a href="https://bsky.app/profile/ryancordell.org/post/3mdxvb5xtvc2g">Ryan's thread on making this with Claude Code here</a>)</p>
+
+<br>
+<hr>
+<p style="color: gray;"><s>Blame</s> high five <a href="https://amandavisconti.com">Amanda Wyatt Visconti</a> for this site.</p>
+
 </body>
 </html>
