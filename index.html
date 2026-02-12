@@ -71,17 +71,17 @@
             position: fixed;
             top: 0;
             right: 0;
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 250px;
             overflow: hidden;
             z-index: 1000;
             pointer-events: none;
         }
         .ribbon {
             position: absolute;
-            top: 35px;
-            right: -50px;
-            width: 300px;
+            top: 45px;
+            right: -70px;
+            width: 350px;
             text-align: center;
             transform: rotate(45deg);
             background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
@@ -96,11 +96,11 @@
         }
         .ribbon a {
             display: block;
-            padding: 8px 0;
+            padding: 10px 0;
             color: #000;
             text-decoration: none;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 16px;
             text-shadow: 
                 1px 1px 0 #fff,
                 -1px -1px 0 #fff,
@@ -123,6 +123,37 @@
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .ribbon-container {
+                width: 200px;
+                height: 200px;
+            }
+            .ribbon {
+                top: 35px;
+                right: -60px;
+                width: 280px;
+            }
+            .ribbon a {
+                font-size: 13px;
+                padding: 8px 0;
+            }
+        }
+        @media (max-width: 480px) {
+            .ribbon-container {
+                width: 160px;
+                height: 160px;
+            }
+            .ribbon {
+                top: 28px;
+                right: -50px;
+                width: 220px;
+            }
+            .ribbon a {
+                font-size: 11px;
+                padding: 6px 0;
+            }
         }
     </style> 
 </head>
