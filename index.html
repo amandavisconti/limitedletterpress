@@ -66,41 +66,36 @@
             color: #666;
             font-style: italic;
         }
-        /* Ribbon styles */
+        /* Ribbon styles - vertical hanging design */
         .ribbon-container {
             position: fixed;
             top: 0;
-            right: 0;
-            width: 250px;
-            height: 250px;
-            overflow: hidden;
+            right: 20px;
             z-index: 1000;
             pointer-events: none;
         }
         .ribbon {
-            position: absolute;
-            top: 45px;
-            right: -70px;
-            width: 350px;
+            position: relative;
+            width: 180px;
             text-align: center;
-            transform: rotate(45deg);
-            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+            background: linear-gradient(135deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
             background-size: 400% 400%;
             animation: gradient-shift 3s ease infinite;
             box-shadow: 0 0 15px rgba(255, 0, 255, 0.8),
                         0 0 25px rgba(0, 255, 255, 0.6),
                         inset 0 0 10px rgba(255, 255, 255, 0.3);
-            border-top: 2px solid #fff;
-            border-bottom: 2px solid #fff;
+            border-left: 2px solid #fff;
+            border-right: 2px solid #fff;
             pointer-events: auto;
         }
         .ribbon a {
             display: block;
-            padding: 10px 0;
+            padding: 15px 12px;
             color: #000;
             text-decoration: none;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
+            line-height: 1.4;
             text-shadow: 
                 1px 1px 0 #fff,
                 -1px -1px 0 #fff,
@@ -117,7 +112,7 @@
                 -1px 1px 0 #fff,
                 0 0 10px rgba(255, 255, 255, 1),
                 0 0 20px rgba(255, 0, 255, 0.8);
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
         @keyframes gradient-shift {
             0% { background-position: 0% 50%; }
@@ -127,32 +122,26 @@
         /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
             .ribbon-container {
-                width: 200px;
-                height: 200px;
+                right: 10px;
             }
             .ribbon {
-                top: 35px;
-                right: -60px;
-                width: 280px;
+                width: 150px;
             }
             .ribbon a {
-                font-size: 13px;
-                padding: 8px 0;
+                font-size: 15px;
+                padding: 12px 10px;
             }
         }
         @media (max-width: 480px) {
             .ribbon-container {
-                width: 160px;
-                height: 160px;
+                right: 5px;
             }
             .ribbon {
-                top: 28px;
-                right: -50px;
-                width: 220px;
+                width: 120px;
             }
             .ribbon a {
-                font-size: 11px;
-                padding: 6px 0;
+                font-size: 13px;
+                padding: 10px 8px;
             }
         }
     </style> 
